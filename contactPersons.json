@@ -1,0 +1,14 @@
+[
+                     { "name": "Trapti",
+                       "id":0,
+                       "location":"Manyata"
+                     },
+                     { "name": "Malay",
+                       "id":1,
+                       "location":"Seegehalli"
+                     }, 
+                     { "name": "Shubhi",
+                       "id":2,
+                       "location":"Whitefield"
+                     }
+]

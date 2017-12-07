@@ -1,0 +1,68 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title> Test for ng-Route </title>
+<script src='bower_components\angular\angular.js'> </script>
+<script src='bower_components\angular-route\angular-route.js'></script>
+<script>
+var app=angular.module("myApp",['ngRoute']);
+
+app.controller('newCntrl',function($rootScope,$location){$rootScope.selectedRoute=$location.path().substr(1); alert("I am from new controller")});
+app.config(function($routeProvider){
+  $routeProvider.when('/red',{
+    template:"<h1 style='color:red'>This is red text</h1>",
+     controller : 'newCntrl'
+   // templateUrl:'red.html'
+  })
+  .when('/blue',{
+    template : "<h1 style='color:blue'>This is blue text</h1>",
+    controller : 'newCntrl'
+  //  templateUrl:'blue.html'
+  })
+  .when('/green',{
+    template : "<h1 style='color:green'>This is green text</h1>",
+     controller : 'newCntrl'
+   // templateUrl:'green.html'
+  })
+  .otherwise('/');
+
+});
+
+app.controller('myCntrl',function($scope,$rootScope,$location){
+$scope.colorChoices=['red','green','blue'];
+$rootScope.selectedRoute="red";
+
+$scope.changeURL=function(){
+  //$rootScope.selectedRoute=$scope.selectedRoute;  //why the $rootScope variables are not refelecting back with changes to them through html template?
+  alert("new path="+$rootScope.selectedRoute);
+  alert("current path="+$location.path());
+ // $scope.selectedRoute=newVal;
+  $location.path($rootScope.selectedRoute);
+};
+});
+
+</script>
+</head>
+<body>
+  <div ng-app='myApp'>
+        <div ng-controller='myCntrl'>
+    <p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>
+
+<a href="#!blue">Blue</a>
+<a href="#!green">Green</a>
+<a href="#!red">Red</a>
+<p> Or select the value from the drop down to navigate - 
+  <select ng-model="selectedRoute" ng-options="x for x in colorChoices" ng-change="changeURL()">
+  </select>
+</p>
+  	
+
+     <ng-view> </ng-view>
+
+ The selected route is {{selectedRoute}}
+
+
+  	</div>
+  </div>
+</body>
+</html>

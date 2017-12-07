@@ -1,0 +1,45 @@
+<html>
+<head>
+<title> Test for GroupBy </title>
+<script src='bower_components\angular\angular.js'> </script>
+<script src='bower_components\angular-filter\dist\angular-filter.js'></script>
+<script>
+var app=angular.module('myApp1',['angular.filter']);
+app.controller('myCntrl',function($scope){
+
+$scope.offerings = [{offering : "BLUEBOX",state : "DRAFT",count : "111"},
+                      {offering : "BLUEBOX",state : "SUBMITTED",count : "25"},
+                      {offering : "CAS",state : "DRAFT",count : "126"},
+                      {offering : "CAS",state : "SUBMITTED",count : "4"},
+                      {offering : "COSD",state : "DRAFT",count : "180"},
+                      {offering : "COSD",state : "SUBMITTED",count : "52"},
+                      {offering : "CMS",state : "DRAFT",count : "296"},
+                      {offering : "CMS",state : "SUBMITTED",count : "130"},
+                      {offering : "ICDES",state : "DRAFT",count : "10"},
+                      {offering : "ICDES",state : "SUBMITTED",count : "2"},
+                      {offering : "IDTES",state : "DRAFT",count : "156"},
+                      {offering : "IDTES",state : "SUBMITTED",count : "10"}];
+
+
+});
+</script>
+</head>
+<body>
+  <div ng-app='myApp1'>
+  	<div ng-controller='myCntrl'>
+     <ul ng-repeat="(key,value) in offerings | groupBy:'offering'">
+     	
+     		{{key}} &nbsp;
+        <li ng-repeat="val in value">
+          {{val.state}} &nbsp; {{val.count}}
+      </li>
+     	
+     
+
+     </ul>
+
+
+  	</div>
+  </div>
+</body>
+</html>

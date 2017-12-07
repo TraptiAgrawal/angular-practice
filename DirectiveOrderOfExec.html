@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script src="angular.js"></script>
+<script>
+var myApp = angular.module('myApp', []);
+myApp.factory('aProvider', function() {
+   console.log("factory");
+   return{};
+});
+
+myApp.directive("test1", function() {
+    console.log("directive test1 setup");
+    return {
+        compile: function() {console.log("directive test1 compile");
+        return {
+        	pre: function() {console.log("directive test1 pre link");},
+        	post: function() {console.log("directive test1 post link");}
+        }
+    }
+    }
+});
+
+myApp.directive("test2", function() {
+    console.log("directive test2 setup");
+    return {
+        link: function() {console.log("directive test2 link");},
+        compile:function() {console.log("directive test2 compile");}  //we can't have both compile and link like this - if both compile must return link otherwise link is not called if in this format
+}});
+myApp.run(function() {
+    console.log("app run");
+    }
+);
+
+myApp.config( function() {
+    console.log("app config");
+});
+
+myApp.controller('myCtrl', function($scope, aProvider) {
+    console.log("app controller");
+});
+
+
+ </script>
+
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div test1 test2> </div>
+</div>
+</body>
+</html>

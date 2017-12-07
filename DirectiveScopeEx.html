@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script src="angular.js"></script>
+<script>
+ var mainMod=angular.module("mainMod",[]);
+ mainMod.directive('customDir',function(){
+ 	return {
+ 		restrict:'EACM',
+ 		templateUrl:function(element, attr){
+ 				console.log ("element="+element);
+ 			console.log ("attrs from attrNEW="+attr.customers);   //use attribute name as normalized name too
+ 			console.log("attrs direct from directive="+attr.customDir);  //this works for comments and even for attribute
+              //attr.class -- this gives the directive name with class name
+ 			return "templates/customerDet.html";
+
+ 		},
+ 		replace:true,
+ 		scope: {customers : "="} 
+
+ 	}
+ });
+ 
+mainMod.controller('myCtrl',function($scope){
+	$scope.customers=[{
+		name:"Trapti",
+		contact:"traptiagrawal@yahoo.com"
+	},
+	{
+		name:"Malay",
+		contact:"mts1568@yahoo.com"
+	}]
+})
+ </script>
+
+</head>
+<body ng-app="mainMod">
+	<div ng-controller="myCtrl">
+	You will see this message appearing four times
+	<br><br><h3>Below is the directive created by the element</h3><br>
+<custom-dir customers="customers">hello I am in template</custom-dir>
+
+<br><h3>Below is the directive created by the attribute</h3><br>
+<div custom-dir="hello" customers="customers"></div>
+<br><h3>Below is the directive created by the class</h3><br>
+<div class='custom-dir :attr2;'></div>
+<br><h3>Below is the directive created by the comment</h3><br>
+<!-- directive:custom-dir attr3 -->
+
+</div>
+ 
+</body>
+</html>

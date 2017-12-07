@@ -1,0 +1,108 @@
+<html>
+<head>
+ 
+
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title> Test for ng-Route </title>
+<script src='bower_components\angular\angular.js'> </script>
+<script src='..\node_modules\angular-ui-router\release\angular-ui-router.js'></script>
+<script>
+var app=angular.module("myApp",['ui.router']);
+
+app.service('contactsService', ['$http',function($http){
+  this.getContactDetails=function(){
+   return $http.get('contactPersons.json').then(function(data){
+  //return $http.get('https://api.github.com/users').then(function(data){
+   // alert(data);
+    console.log(data.data[0]);
+    return data.data
+
+  },function(respErr){
+    console.warn('Error while fetching JSON for contact details = '+respErr);
+  })
+
+ }
+
+}]
+
+)
+
+app.controller('contactsCntrl',['$scope','contactsService',function($scope,contactsService){ 
+  var promiseObj=contactsService.getContactDetails();
+  promiseObj.then(function(data){alert("from controller");$scope.contacts=data;})
+  console.log("Controller $scope.contacts="+$scope.contacts);
+    }
+  ]
+);
+
+app.controller('navController', function($scope){
+  //  console.log($scope.contacts);
+});
+
+app.config(function($stateProvider,$urlRouterProvider, $qProvider, $locationProvider){
+  $locationProvider.hashPrefix('');  //to remove ! from the url after # - hashbang
+  //$locationProvider.html5Mode({    //this is needed to remove even # from the url - if we want the $location to use html5 mode and not to use hashbangs for making it crawlable
+  //  enabled: true,
+  //  requireBase : false});
+  $qProvider.errorOnUnhandledRejections(false);   //this is a workaround for possily unhandled rejections - needed above angular 1.4
+  $stateProvider
+  .state('contacts', {
+    url:'/contacts',
+    templateUrl:"templates/Contacts.html",
+    controller : 'contactsCntrl'
+   
+  })
+  .state('contacts.list',{
+    url:'/list',
+    views: {
+      'header' : {
+                    templateUrl:'templates/header.html'
+                  },
+      'nav' : {
+                    templateUrl:'templates/nav.html',
+                    controller:'navController'
+                  },
+      
+           
+      'content' :  {
+                    templateUrl:'templates/content.html' }
+      }
+   })
+  .state('contacts.list.details',{
+    url: '/details/:contactId',
+    views: {
+      'content@contacts': {
+                    templateUrl:'templates/content.html',
+                    controller:function($scope,$stateParams){
+                      alert($stateParams.contactId);
+
+                      $scope.person=$scope.contacts[$stateParams.contactId];
+                      alert($scope.person.name);
+                    }
+
+                  }
+
+    }
+
+  })
+  
+  $urlRouterProvider.otherwise('/');
+
+});
+
+
+
+</script>
+</head>
+<body>
+  <div ng-app='myApp'>
+
+    Hello <a ui-sref='contacts.list'>click here</a>
+      
+     <ui-view> </ui-view>
+
+
+  
+  </div>
+</body>
+</html>

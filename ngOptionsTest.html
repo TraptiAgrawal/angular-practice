@@ -1,0 +1,72 @@
+<html>
+<head>
+<title> Test for GroupBy </title>
+<script src='bower_components\angular\angular.js'> </script>
+<script>
+var app=angular.module('myApp1',[]);
+app.controller('myCntrl',function($scope){
+  $scope.friends = [
+     
+    {name:'Mary', age:28, gender:'girl'},
+    {name:'Sebastian', age:50, gender:'boy'},
+    {name:'Jessie', age:30, gender:'girl'},
+    {name:'Patrick', age:40, gender:'boy'},
+    {name:'Samantha', age:60, gender:'girl'},
+    {name:'Peter', age:95, gender:'boy'},
+    {name:'John', age:25, gender:'boy'},
+    {name:'Erika', age:27, gender:'girl'},
+    {name:'Joy', age:15, gender:'girl'},
+    {name:'Johanna', age:28, gender:'girl'}
+  ];
+
+  $scope.friendsArr=$scope.friends.map(function(curr,ind){return curr.name;}); 
+  //setting initial values to the dropdpwns
+  $scope.selOpt1="John";
+  $scope.selOpt2="Peter";
+  $scope.selOpt3="Joy";
+  $scope.selOpt4="Erika";
+
+});
+</script>
+</head>
+<body>
+  <div ng-app='myApp1'>
+  	<div ng-controller='myCntrl'>
+      <h2>Test for Select and options in Angular</h2>
+      <h4> Dropdown 1 - Using Select and ng-model And option tags<h4>
+      <select ng-model="selOpt1">
+        <option></option>
+        <option>Mary</option>
+        <option>John</option>
+        <option>Peter</option>
+      </select>
+
+      Selected option through 1st method - {{selOpt1}}
+      
+      <br>
+      <h4> Dropdown 2 - Using Select and ng-repeat with Object Array<h4>
+      <select ng-model="selOpt2">
+        <option></option>
+        <option ng-repeat="x in friends">{{x.name}}</option>
+      </select>
+
+      Selected option through 2nd method - {{selOpt2}}
+      <br>
+      <h4> Dropdown 3 - Using Select and ng-repeat with String Array<h4>
+      <select ng-model="selOpt3">
+        <option></option>
+        <option ng-repeat="x in friendsArr">{{x}}</option>
+      </select>
+
+      Selected option through 3rd method - {{selOpt3}}
+      <br>
+      <h4> Dropdown 4 - Using Select and ng-options with String Array<h4>
+      <select ng-model="selOpt4" ng-options="x in friendsArr">
+      </select>
+
+      Selected option through 4th method - {{selOpt4}}
+      
+  	</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<html>
+<head>
+	<title="Jquery SPA">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+			  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			  crossorigin="anonymous"></script>
+<link href="https://1.www.s81c.com/common/v18/css/www.css" rel="stylesheet">
+<script src="https://1.www.s81c.com/common/v18/js/www.js"></script>
+<script src="overlay.js"></script>
+	<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+</head>
+<body>
+<div class='container'>
+<header>This is my Page </header>
+<nav>
+	<ul>
+		<li><a href=#> My Introduction </a></li>
+		<li><a href=#> My Education </a></li>
+		<li><a href=#> My Hobbies </a></li>
+	</ul>
+</nav>
+<article>
+<h1> About ME</h1>
+<p> I am Trapti, a girl full of self confidence, values, thoughtfullness and kindness. I need to be more disciplined in my life, towards my routine, following my heart and chasing my dreams. I have a cute little daughter Shubhi and my loving hubby Malay. I am very cheerful person and stays happy.
+	<a onClick="IBMCore.common.widget.overlay.show('overlay_new_test');return false;">New Overlay TEST -My hobbies</a>
+	</p>
+<div class="ibm-common-overlay ibm-overlay-alt-two" data-type="alert" data-widget="overlay" id="overlay_new_test">
+        <p>I love to listen to Music all time :-) I love dancing too and keep on dancing all the time but when no one is seeing..LOL</p>
+</div>
+</article>
+
+<footer>This is all about ME :-) </footer>
+</div>
+</body>
+</html>

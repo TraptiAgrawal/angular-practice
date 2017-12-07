@@ -1,0 +1,44 @@
+<html>
+<head>
+<title> Test for GroupBy </title>
+<script src='bower_components\angular\angular.js'> </script>
+<script src='bower_components\angular-filter\dist\angular-filter.js'></script>
+<script>
+var app=angular.module('myApp1',['angular.filter']);
+app.controller('myCntrl',function($scope){
+  $scope.friends = [
+     
+    {name:'Mary', age:28, gender:'girl'},
+    {name:'Sebastian', age:50, gender:'boy'},
+    {name:'Jessie', age:30, gender:'girl'},
+    {name:'Patrick', age:40, gender:'boy'},
+    {name:'Samantha', age:60, gender:'girl'},
+    {name:'Peter', age:95, gender:'boy'},
+    {name:'John', age:25, gender:'boy'},
+    {name:'Erika', age:27, gender:'girl'},
+    {name:'Joy', age:15, gender:'girl'},
+    {name:'Johanna', age:28, gender:'girl'}
+  ];
+
+});
+</script>
+</head>
+<body>
+  <div ng-app='myApp1'>
+  	<div ng-controller='myCntrl'>
+     <ul ng-repeat="(key,value) in friends | groupBy:'gender'">
+     	
+     		{{key}} &nbsp;
+        <li ng-repeat="val in value">
+          {{val.name}} &nbsp; {{val.age}} &nbsp; {{val.gender}}
+      </li>
+     	
+     	</li>
+
+     </ul>
+
+
+  	</div>
+  </div>
+</body>
+</html>
